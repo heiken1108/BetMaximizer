@@ -1,17 +1,23 @@
 import requests
+import pandas as pd
 
 NT_baseUrl = "https://api.norsk-tipping.no/OddsenGameInfo/v1/api/"
 
-def get_data_by_url_and_key(url, key):
+def get_data_by_url_and_key(url, key = ''):
     try:
         response = requests.get(url)
-        return response.json()[key]
+        if key == '':
+            return response.json()
+        else:
+            return response.json()[key]
     except:
         print("Error: Could not retrieve data from " + url)
         return []
 
+#Format: sportId = FBL (Fotball)
 def NT_get_all_events_by_sport_id(sportId):
     return get_data_by_url_and_key(NT_baseUrl + "events/" + sportId, 'eventList')
+
 
 def NT_get_all_events_by_sport_id_and_date(sportId, date):
     return get_data_by_url_and_key(NT_baseUrl + "events/" + sportId + "/" + date, 'eventList')
@@ -40,3 +46,8 @@ def NT_get_sport_by_id(sportId):
 
 def NT_get_all_sports_info():
     return get_data_by_url_and_key(NT_baseUrl + "sports", 'sports')
+
+#Format: Season: 2122 (som betyr 2021/2022), League: E0 (Premier League)
+def FootballData_get_football_data_by_season_and_league(season, league):
+    url = f"https://www.football-data.co.uk/mmz4281/{season}/{league}.csv"
+    return pd.read_csv(url)

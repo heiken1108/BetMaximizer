@@ -48,8 +48,12 @@ def NT_get_all_sports_info():
     return get_data_by_url_and_key(NT_baseUrl + "sports", 'sports')
 
 #Format: Season: 2122 (som betyr 2021/2022), League: E0 (Premier League)
-def FootballData_get_football_data_by_season_and_league(season, league):
+def FootballData_get_football_data_by_season_and_league_old(season, league):
     url = f"https://www.football-data.co.uk/mmz4281/{season}/{league}.csv"
+    return pd.read_csv(url)
+
+def FootballData_get_football_data_by_season_and_league_new(league):
+    url = f"https://www.football-data.co.uk/new/{league}.csv"
     return pd.read_csv(url)
 
 #Format: Year: 2024, Tournament: ausopen

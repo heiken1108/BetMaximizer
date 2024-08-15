@@ -51,3 +51,9 @@ def NT_get_all_sports_info():
 def FootballData_get_football_data_by_season_and_league(season, league):
     url = f"https://www.football-data.co.uk/mmz4281/{season}/{league}.csv"
     return pd.read_csv(url)
+
+#Format: Year: 2024, Tournament: ausopen
+def FootballData_get_tennis_data_by_year_and_tournament(year, tournament):
+    url = f"http://www.tennis-data.co.uk/{year}/{tournament}.csv"
+    print(url)
+    return pd.read_csv(url)

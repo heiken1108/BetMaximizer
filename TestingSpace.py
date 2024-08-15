@@ -1,6 +1,6 @@
 import DataRetrieval.APISnatcher as APISnatcher
 import UtilityFunctions.UtilityFunctions as UtilityFunctions
 
-data = APISnatcher.FootballData_get_football_data_by_season_and_league('2021', 'E0')
+data = APISnatcher.FootballData_get_tennis_data_by_year_and_tournament('2024', 'ausopen')
 
 print(data)

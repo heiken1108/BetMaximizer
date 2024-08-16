@@ -50,14 +50,40 @@ def NT_get_all_sports_info():
 #Format: Season: 2122 (som betyr 2021/2022), League: E0 (Premier League)
 def FootballData_get_football_data_by_season_and_league_old(season, league):
     url = f"https://www.football-data.co.uk/mmz4281/{season}/{league}.csv"
-    return pd.read_csv(url)
+    try:
+        df = pd.read_csv(url)
+        return df
+    except:
+        print("Error: Could not retrieve data from " + url)
+        return pd.DataFrame()
 
 def FootballData_get_football_data_by_season_and_league_new(league):
     url = f"https://www.football-data.co.uk/new/{league}.csv"
-    return pd.read_csv(url)
+    try:
+        df = pd.read_csv(url)
+        return df
+    except:
+        print("Error: Could not retrieve data from " + url)
+        return pd.DataFrame()
 
 #Format: Year: 2024, Tournament: ausopen
 def FootballData_get_tennis_data_by_year_and_tournament(year, tournament):
     url = f"http://www.tennis-data.co.uk/{year}/{tournament}.csv"
     print(url)
     return pd.read_csv(url)
+
+
+
+def get_FootballData(season_list, league_list):
+    df_ls = []
+
+    for season in season_list:
+        for league in league_list:
+            try:
+                df = FootballData_get_football_data_by_season_and_league_old(season, league)
+            except:
+                df = pd.DataFrame()
+            df_ls.append(df)
+            
+    return pd.concat(df_ls)
+
